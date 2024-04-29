@@ -14,10 +14,10 @@ app.use(cors({
 const connectDB = require('./config/config');
 connectDB();
 
-// // User: login y register
-// const userRoutes = require('./routes/userRoutes');
-// app.use('/api', userRoutes);
+// User: login y register
+const authRoutes = require('./routes/authRoutes');
+app.use('/api', authRoutes);
 
-app.listen(8000, () => {
-    console.log("Servidor escuchando en el puerto 8000");
+app.listen(8060, () => {
+    console.log("Servidor escuchando en el puerto 8060");
 });
