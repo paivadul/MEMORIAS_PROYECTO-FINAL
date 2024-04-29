@@ -1,0 +1,37 @@
+const mongoose = require('mongoose');
+
+const AnecdotaSchema = new mongoose.Schema({
+        titulo: {
+            type: String,
+            required: true,
+        },
+        fecha: {
+            type: Date,
+            required: true,
+        },
+        descripcion: {
+            type: String,
+            required: true,
+        },
+        media: [{
+            audio: {
+                type: Buffer,
+                contentType: String
+            },
+            foto: {
+                type: Buffer,
+                contentType: String
+            },
+            video: {
+                type: Buffer,
+                contentType: String
+            },
+        }]
+
+});
+
+const Anecdota = mongoose.model('Anecdota', AnecdotaSchema);
+
+module.exports = {
+    Anecdota
+};

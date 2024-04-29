@@ -18,6 +18,10 @@ connectDB();
 const authRoutes = require('./routes/authRoutes');
 app.use('/api', authRoutes);
 
+// Anecdotas
+const anecdotaRoutes = require('./routes/anecdotaRoutes');
+app.use('/api/anecdota', anecdotaRoutes)
+
 app.listen(8060, () => {
     console.log("Servidor escuchando en el puerto 8060");
 });
