@@ -12,22 +12,7 @@ const AnecdotaSchema = new mongoose.Schema({
         descripcion: {
             type: String,
             required: true,
-        },
-        media: [{
-            audio: {
-                type: Buffer,
-                contentType: String
-            },
-            foto: {
-                type: Buffer,
-                contentType: String
-            },
-            video: {
-                type: Buffer,
-                contentType: String
-            },
-        }]
-
+        }
 });
 
 const Anecdota = mongoose.model('Anecdota', AnecdotaSchema);

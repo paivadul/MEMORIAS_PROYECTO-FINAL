@@ -1,11 +1,9 @@
-const express = require('express');
 const { Anecdota } = require('../models/anecdotaModels');
 
 const anecdotaSchema = anecdota => ({
     titulo: anecdota.titulo,
     fecha: anecdota.fecha,
     descripcion: anecdota.descripcion,
-    media: anecdota.media
 });
 
 const createNewAnecdota = (req, res) => {
