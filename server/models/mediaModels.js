@@ -2,16 +2,13 @@ const mongoose = require('mongoose');
 
 const MediaSchema = new mongoose.Schema({
     audio: {
-        type: Buffer,
-        contentType: String
+        type: String,
     },
     foto: {
-        type: Buffer,
-        contentType: String
+        type: String,
     },
     video: {
-        type: Buffer,
-        contentType: String
+        type: String,
     },
 });
 

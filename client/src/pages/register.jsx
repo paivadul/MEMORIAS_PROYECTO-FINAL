@@ -1,59 +1,88 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
-const API_URL = 'http://localhost:8080/api/v1/register'; // Replace with your backend URL
-
 const Register = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const [data, setData] = useState({});
+  const [error, setError] = useState({});
   const navigate = useNavigate();
 
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+    setError({ ...error, [e.target.name]: '' });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post(API_URL, formData);
-
-      if (response.data.success) {
-        message.success('Registro exitoso!');
-        navigate('/'); // Redirect to home page on success
+      const response = await axios.post('http://localhost:8060/api/register', data);
+      console.log('response: ', response)
+      if (response.data.data) {
+        console.log('Registro exitoso!', response.data.data);
+        setData({});
+        // navigate('/');
       } else {
-        message.error(response.data.message);
+        console.error("Registro fallido: ", response.data.error);
+        setError(response.data.error)
       }
     } catch (error) {
-      console.error(error);
-      message.error('Error al registrarse'); // More user-friendly error message
+      if (error.response) {
+        setError( 'Error en la carga de datos: ', error.response.data.error);
+      } else {
+        console.error(error.message);
+      }
     }
   };
 
   return (
     <div className="form-container">
-      <Form layout="vertical" onFinish={handleSubmit} className="register-form">
+      <form className="register-form" onSubmit={handleSubmit}>
         <h3 className="text-center">Formulario de Registro</h3>
-        <Form.Item label="Nombre" name="name">
-          <Input type="text" required value={formData.name} onChange={handleChange} />
-        </Form.Item>
-        <Form.Item label="Correo electrónico" name="email">
-          <Input type="email" required value={formData.email} onChange={handleChange} />
-        </Form.Item>
-        <Form.Item label="Contraseña" name="password">
-          <Input.Password required value={formData.password} onChange={handleChange} />
-        </Form.Item>
-        <Link to="/login" className="m-2">
-          ¿Ya tienes una cuenta? Inicia sesión aquí
-        </Link>
-        <Button type="primary" htmlType="submit">
-          Registrarse
-        </Button>
-      </Form>
+
+        <label htmlFor="name">
+          Nombre: 
+            <input
+              required
+              type="text" 
+              value={data.firstName || ""}
+              name="firstName"
+              className="form-control"
+              onChange={handleChange} />
+        </label>
+        <label htmlFor="name">
+          Apellido: 
+            <input
+              required
+              type="text" 
+              value={data.lastName || ""}
+              name="lastName"
+              className="form-control"
+              onChange={handleChange} />
+        </label>
+        <label htmlFor="email">
+          Correo electrónico
+            <input
+              required
+              type="email" 
+              value={data.email || ""}
+              name="email"
+              className="form-control"
+              onChange={handleChange} />
+        </label>
+        <label htmlFor="password">
+          Contraseña
+            <input
+              required
+              type="password" 
+              value={data.password || ""}
+              name="password"
+              className="form-control"
+              onChange={handleChange} />
+        </label>
+
+        <button type="submit" className="btn btn-primary">Registrarse</button>
+        <Link to={`/login`} className="m-2">¿Ya tienes una cuenta? Inicia sesión aquí</Link>
+      </form>
     </div>
   );
 };

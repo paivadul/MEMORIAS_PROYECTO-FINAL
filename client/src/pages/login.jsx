@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
 const API_URL = 'http://localhost:8080/api/v1'; // URL of your Node.js server
@@ -17,49 +16,54 @@ const Login = () => {
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Prevent default form submission behavior
+        event.preventDefault();
 
         try {
             const response = await axios.post(`/login`, formData);
-            console.log(response.data); // Handle successful login response
+            console.log(response.data);
 
-            // Assuming your backend returns a token on successful login:
-            const token = response.data.token; // Extract the token from the response
-            localStorage.setItem('userToken', token); // Store the token in local storage
+            const token = response.data.token; 
+            localStorage.setItem('userToken', token);
 
-            message.success('Inicio de sesión exitoso');
-            navigate('/home'); // Redirect to the home page or a protected route
+            console.log('Inicio de sesión exitoso');
+            navigate('/home');
         } catch (error) {
             console.error(error);
-            message.error('Error al iniciar sesión');
+            console.error('Error al iniciar sesión');
         }
     };
 
     return (
         <div className="form-container">
             <h1>Iniciar sesión</h1>
-            <Form layout="vertical" onSubmit={handleSubmit}>
-                <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[{ required: true, message: 'Por favor ingresa tu email' }]}
-                >
-                    <Input value={formData.email} onChange={handleChange} />
-                </Form.Item>
-                <Form.Item
-                    label="Contraseña"
-                    name="password"
-                    rules={[{ required: true, message: 'Por favor ingresa tu contraseña' }]}
-                >
-                    <Input.Password value={formData.password} onChange={handleChange} />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Iniciar sesión
-                    </Button>
-                </Form.Item>
-                <Link to="/register">¿Aún no tienes una cuenta? Regístrate aquí</Link>
-            </Form>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Contraseña</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <button type="submit">Iniciar sesión</button>
+                </div>
+            </form>
+            <p>¿Aún no tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
         </div>
     );
 };

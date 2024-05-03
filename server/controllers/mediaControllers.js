@@ -1,21 +1,20 @@
 const { Media } = require('../models/mediaModels');
 
-const mediaSchema = media => ({
-    audio: media.audio,
-    foto: media.foto,
-    video: media.video,
-});
+const createNewMedia = async (req, res) => {
+    try {
+        const { file, body } = req;
 
-const createNewMedia = (req, res) => {
-    const sendmedia = mediaSchema(req.body); 
-    Media.create(sendmedia)
-        .then(media => {
-            res.status(200).json(Media);
-        })
-        .catch(err => {
-            console.error('Error al crear una nueva media:', err);
-            res.status(400).json({ error: err.message });
+        const nuevoMedia = await Media.create({
+            audio: file.path,
+            foto: body.foto,
+            video: body.video
         });
+
+        res.status(200).json(nuevoMedia);
+    } catch (error) {
+        console.error('Error al crear una nueva media:', error);
+        res.status(400).json({ error: error.message });
+    }
 };
 
 const getAllMedias = async (req, res) => {
@@ -33,25 +32,26 @@ const getMediaById = async (req, res) => {
     try {
         const media = await Media.findById(id);
         if (!media) {
-            return res.status(404).json({ message: 'No se encontró el ID de la anécdota' })
+            return res.status(404).json({ message: 'No se encontró el medio con el ID proporcionado' });
         }
-        res.status(200).json(media)
+        res.status(200).json(media);
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({ error: error.message });
     }
 };
 
 const updateMedia = async (req, res) => {
     const { id } = req.params;
-    const sendMedia = mediaSchema(req.body);
+    const sendMedia = req.body;
+
     try {
-        const updatedMedia = await Media.findByIdAndUpdate(id, sendMedia, { new: true })
+        const updatedMedia = await Media.findByIdAndUpdate(id, sendMedia, { new: true });
         if (!updatedMedia) {
-            return res.status(404).json({ message: 'No se pudo actualizar la anécdota' })
+            return res.status(404).json({ message: 'No se pudo actualizar el medio' });
         }
-        res.status(200).json(updatedMedia)
+        res.status(200).json(updatedMedia);
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -60,11 +60,11 @@ const deleteMedia = async (req, res) => {
     try {
         const deletedMedia = await Media.findByIdAndDelete(id);
         if (!deletedMedia) {
-            return res.status(404).json({ message: 'No se pudo eliminar la anécdota' })
+            return res.status(404).json({ message: 'No se pudo eliminar el medio' });
         }
-        res.status(200).json({ message: 'Media eliminada' })
+        res.status(200).json({ message: 'Media eliminada' });
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({ error: error.message });
     }
 };
 
