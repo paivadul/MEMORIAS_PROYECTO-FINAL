@@ -1,4 +1,20 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const MediaSchema = new Schema({
+    audio: {
+        type: Schema.Types.ObjectId,
+        ref: 'Audio'
+    },
+    foto: {
+        type: Schema.Types.ObjectId,
+        ref: 'Foto'
+    },
+    video: {
+        type: Schema.Types.ObjectId,
+        ref: 'Video'
+    }
+});
 
 const VisitaSchema = new mongoose.Schema({
         nombre: {
@@ -10,8 +26,7 @@ const VisitaSchema = new mongoose.Schema({
             required: true,
         },
         media: {
-            type: Buffer,
-            required: true,
+            type: MediaSchema
         }
 });
 

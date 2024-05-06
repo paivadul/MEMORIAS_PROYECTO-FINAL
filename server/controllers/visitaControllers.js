@@ -1,16 +1,20 @@
 const { Visita } = require('../models/visitaModels');
 
 const visitaSchema = visita => ({
-    titulo: visita.titulo,
-    fecha: visita.fecha,
-    descripcion: visita.descripcion,
+    nombre: visita.nombre,
+    nota: visita.nota,
+    media: {
+        audio: visita.media.audio,
+        foto: visita.media.foto,
+        video: visita.media.video
+    }
 });
 
 const createNewVisita = (req, res) => {
     const sendVisita = visitaSchema(req.body); 
     Visita.create(sendVisita)
-        .then(Visita => {
-            res.status(200).json(Visita);
+        .then(visita => {
+            res.status(200).json(visita);
         })
         .catch(err => {
             console.error('Error al crear una nueva visita:', err);
@@ -33,11 +37,12 @@ const getVisitaById = async (req, res) => {
     try {
         const visita = await Visita.findById(id);
         if (!visita) {
-            return res.status(404).json({ message: 'No se encontró el ID de la anécdota' })
+            return res.status(404).json({ message: 'No se encontró la visita' });
         }
-        res.status(200).json(visita)
+        res.status(200).json(visita);
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        console.error('Error al obtener la visita por ID:', error);
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -45,13 +50,14 @@ const updateVisita = async (req, res) => {
     const { id } = req.params;
     const sendVisita = visitaSchema(req.body);
     try {
-        const updatedVisita = await Visita.findByIdAndUpdate(id, sendVisita, { new: true })
+        const updatedVisita = await Visita.findByIdAndUpdate(id, sendVisita, { new: true });
         if (!updatedVisita) {
-            return res.status(404).json({ message: 'No se pudo actualizar la anécdota' })
+            return res.status(404).json({ message: 'No se pudo actualizar la visita' });
         }
-        res.status(200).json(updatedVisita)
+        res.status(200).json(updatedVisita);
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        console.error('Error al actualizar la visita:', error);
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -60,11 +66,12 @@ const deleteVisita = async (req, res) => {
     try {
         const deletedVisita = await Visita.findByIdAndDelete(id);
         if (!deletedVisita) {
-            return res.status(404).json({ message: 'No se pudo eliminar la anécdota' })
+            return res.status(404).json({ message: 'No se pudo eliminar la visita' });
         }
-        res.status(200).json({ message: 'Visita eliminada' })
+        res.status(200).json({ message: 'Visita eliminada' });
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        console.error('Error al eliminar la visita:', error);
+        res.status(500).json({ error: error.message });
     }
 };
 

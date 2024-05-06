@@ -14,8 +14,7 @@ app.use(cors({
 }));
 
 // Multer: rutas
-app.post('/media/new', upload.single('media'), function (req, res) {
-    console.log('viene de server: ', req.file)
+app.post('/api/anecdota/new', upload.single('media'), function (req, res) {
     res.send('Termina el multer')
 })
 app.use('/static', express.static('upload'));
@@ -31,6 +30,10 @@ app.use('/api', authRoutes);
 // Anécdotas
 const anecdotaRoutes = require('./routes/anecdotaRoutes');
 app.use('/api/anecdota', anecdotaRoutes)
+
+// Visitas
+const visitaRoutes = require('./routes/visitaRoutes');
+app.use('/api/visitas', visitaRoutes)
 
 app.listen(8060, () => {
     console.log("Servidor escuchando en el puerto 8060");
