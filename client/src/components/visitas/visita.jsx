@@ -45,7 +45,7 @@ const Visitas = () => {
     return (
         <>
             <div className='cont-nota'>
-                <form>
+                <form action="/profile" method="post" enctype="multipart/form-data">
                 <label>
                     Nombre:
                         <input
