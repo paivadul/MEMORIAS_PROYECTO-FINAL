@@ -11,7 +11,7 @@ const visitaSchema = visita => ({
 });
 
 const createNewVisita = (req, res) => {
-    const sendVisita = visitaSchema(req.body); 
+    const sendVisita = visitaSchema(req.body);
     Visita.create(sendVisita)
         .then(visita => {
             res.status(200).json(visita);

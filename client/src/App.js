@@ -1,25 +1,29 @@
 import React from 'react';
-import { Routes, Route} from 'react-router-dom';
-// import Inicio from './pages/inicio';
-import Login from './pages/login';
+import { Routes, Route } from 'react-router-dom';
+
 import Register from './pages/register';
+import Inicio from './pages/inicio';
+import Visita from './components/visitas/visita';
+import Anecdotas from './components/anecdotas/anecdotas';
+import AnecdotaByID from './components/anecdotas/anecdotas';
+import Galeria from './components/galeria/galeria';
+import { PublicRoute } from './components/PublicRoute';
+import { PrivateRoute } from './components/PrivateRoute';
+import { Login } from './pages';
+// import Login from './pages/';
+
 
 function App() {
-  // const [token, setToken] = useState(null);
-
-  // useEffect(() => {
-  //   const storedToken = localStorage.getItem('token');
-  //   if (storedToken) {
-  //     setToken(storedToken);
-  //   }
-  // }, []);
-
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        {/* <Route path="/inicio" element={token ? <Inicio /> : <Navigate to="/login" />} /> */}
+        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+        <Route path="/inicio" element={<PrivateRoute><Inicio /></PrivateRoute>} />
+        <Route path="/visitas" element={<PrivateRoute><Visita /></PrivateRoute>} />
+        <Route path="/anecdotas" element={<PrivateRoute><Anecdotas /></PrivateRoute>} />
+        <Route path="/anecdota/:id" element={<PrivateRoute><AnecdotaByID /></PrivateRoute>} />
+        <Route path="/galeria" element={<PrivateRoute><Galeria /></PrivateRoute>} />
       </Routes>
     </div>
   );

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const API_URL = 'http://localhost:8080/api/v1'; // URL of your Node.js server
 
-const Login = () => {
+export const Login = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
@@ -19,53 +20,45 @@ const Login = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post(`/login`, formData);
-            console.log(response.data);
-
-            const token = response.data.token; 
-            localStorage.setItem('userToken', token);
-
-            console.log('Inicio de sesión exitoso');
-            navigate('/home');
+            const response = await axios.post(`http://localhost:8060/api/login`, formData);
+            localStorage.setItem('userToken', response.data.token);
+            navigate('/inicio');
         } catch (error) {
-            console.error(error);
-            console.error('Error al iniciar sesión');
+            console.error('Error al iniciar sesión', error);
         }
     };
 
     return (
-        <div className="form-container">
-            <h1>Iniciar sesión</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
+        <div className="login-container">
+            <h1 className="login-title">MEMORIA</h1>
+            <form onSubmit={handleSubmit} className="login-form">
+                <div>
                     <input
                         type="email"
-                        id="email"
                         name="email"
+                        placeholder="Correo electrónico"
                         value={formData.email}
                         onChange={handleChange}
                         required
+                        className="login-input"
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Contraseña</label>
+                <div>
                     <input
                         type="password"
-                        id="password"
                         name="password"
+                        placeholder="Contraseña"
                         value={formData.password}
                         onChange={handleChange}
                         required
+                        className="login-input"
                     />
                 </div>
-                <div className="form-group">
-                    <button type="submit">Iniciar sesión</button>
+                <div>
+                    <button type="submit" className="login-button">Iniciar Sesión</button>
                 </div>
             </form>
-            <p>¿Aún no tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
+            <p>¿Aún no tienes una cuenta? <Link to="/register" className="login-link">Regístrate aquí</Link></p>
         </div>
     );
 };
-
-export default Login;
