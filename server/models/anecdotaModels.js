@@ -1,20 +1,4 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-const MediaSchema = new Schema({
-    audio: {
-        type: Schema.Types.ObjectId,
-        ref: 'Audio'
-    },
-    foto: {
-        type: Schema.Types.ObjectId,
-        ref: 'Foto'
-    },
-    video: {
-        type: Schema.Types.ObjectId,
-        ref: 'Video'
-    }
-});
 
 const AnecdotaSchema = new mongoose.Schema({
         titulo: {
@@ -30,7 +14,7 @@ const AnecdotaSchema = new mongoose.Schema({
             required: true,
         },
         media: {
-            type: MediaSchema
+            type: String,
         }
 });
 

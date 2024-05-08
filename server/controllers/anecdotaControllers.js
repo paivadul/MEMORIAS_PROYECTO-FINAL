@@ -5,11 +5,7 @@ const anecdotaSchema = anecdota => ({
     titulo: anecdota.titulo,
     fecha: anecdota.fecha,
     descripcion: anecdota.descripcion,
-    media: {
-        audio: anecdota.media.audio,
-        foto: anecdota.media.foto,
-        video: anecdota.media.video
-    }
+    media: anecdota.media
 });
 
 const createNewAnecdota = (req, res) => {
@@ -29,7 +25,7 @@ const createNewAnecdota = (req, res) => {
             sendAnecdota.media = mediaFileName; // Asignar el nombre del archivo al campo de media
 
             // Guardar la nueva anécdota en la base de datos
-            anecdota.create(sendAnecdota)
+            Anecdota.create(sendAnecdota)
                 .then(anecdota => {
                     res.status(200).json(anecdota);
                 })

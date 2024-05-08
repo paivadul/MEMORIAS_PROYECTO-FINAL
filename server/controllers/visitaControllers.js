@@ -1,25 +1,42 @@
 const { Visita } = require('../models/visitaModels');
+const upload = require('../config/multerConfig')
 
 const visitaSchema = visita => ({
     nombre: visita.nombre,
     nota: visita.nota,
-    media: {
-        audio: visita.media.audio,
-        foto: visita.media.foto,
-        video: visita.media.video
-    }
+    media: visita.media
 });
 
 const createNewVisita = (req, res) => {
-    const sendVisita = visitaSchema(req.body); 
-    Visita.create(sendVisita)
-        .then(visita => {
-            res.status(200).json(visita);
-        })
-        .catch(err => {
-            console.error('Error al crear una nueva visita:', err);
-            res.status(400).json({ error: err.message });
+    try {
+        // Utilizar el middleware de Multer para manejar la carga de archivos
+        upload.single('media')(req, res, (err) => {
+            if (err) {
+                console.error('Error al cargar el archivo:', err);
+                return res.status(400).json({ error: 'Error al cargar el archivo' });
+            }
+
+            // Obtener el nombre del archivo cargado
+            const mediaFileName = req.file ? req.file.filename : null;
+
+            // Crear una nueva instancia del modelo visita
+            const sendvisita = visitaSchema(req.body);
+            sendvisita.media = mediaFileName; // Asignar el nombre del archivo al campo de media
+
+            // Guardar la nueva anécdota en la base de datos
+            Visita.create(sendvisita)
+                .then(visita => {
+                    res.status(200).json(visita);
+                })
+                .catch(err => {
+                    console.error('Error al crear una nueva visita:', err);
+                    res.status(400).json({ error: err.message });
+                });
         });
+    } catch (error) {
+        console.error('Error al crear una nueva visita:', error);
+        res.status(400).json({ error: error.message });
+    }
 };
 
 const getAllVisitas = async (req, res) => {
