@@ -1,41 +1,44 @@
 const { Anecdota } = require('../models/anecdotaModels');
+const upload = require('../config/multerConfig')
 
 const anecdotaSchema = anecdota => ({
     titulo: anecdota.titulo,
     fecha: anecdota.fecha,
     descripcion: anecdota.descripcion,
-    media: {
-        audio: anecdota.media.audio,
-        foto: anecdota.media.foto,
-        video: anecdota.media.video
-    }
+    media: anecdota.media
 });
 
-const createNewAnecdota = async (req, res) => {
+const createNewAnecdota = (req, res) => {
     try {
-        // Obtener el nombre del archivo cargado
-        const mediaFileName = req.file.filename;
-
-        // Crear una nueva instancia del modelo Anecdota
-        const newAnecdota = new Anecdota({
-            titulo: req.body.titulo,
-            fecha: req.body.fecha,
-            descripcion: req.body.descripcion,
-            media: {
-                foto: mediaFileName // Solo se carga una foto en este ejemplo
+        // Utilizar el middleware de Multer para manejar la carga de archivos
+        upload.single('media')(req, res, (err) => {
+            if (err) {
+                console.error('Error al cargar el archivo:', err);
+                return res.status(400).json({ error: 'Error al cargar el archivo' });
             }
+
+            // Obtener el nombre del archivo cargado
+            const mediaFileName = req.file ? req.file.filename : null;
+
+            // Crear una nueva instancia del modelo Anecdota
+            const sendAnecdota = anecdotaSchema(req.body);
+            sendAnecdota.media = mediaFileName; // Asignar el nombre del archivo al campo de media
+
+            // Guardar la nueva anécdota en la base de datos
+            Anecdota.create(sendAnecdota)
+                .then(anecdota => {
+                    res.status(200).json(anecdota);
+                })
+                .catch(err => {
+                    console.error('Error al crear una nueva anecdota:', err);
+                    res.status(400).json({ error: err.message });
+                });
         });
-
-        // Guardar la nueva anécdota en la base de datos
-        const savedAnecdota = await newAnecdota.save();
-
-        res.status(201).json(savedAnecdota);
     } catch (error) {
         console.error('Error al crear una nueva anecdota:', error);
         res.status(400).json({ error: error.message });
     }
 };
-
 
 const getAllAnecdotas = async (req, res) => {
     try {
@@ -47,6 +50,7 @@ const getAllAnecdotas = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 const getAnecdotaById = async (req, res) => {
     const { id } = req.params;
@@ -61,6 +65,7 @@ const getAnecdotaById = async (req, res) => {
         res.status(500).json({ error: error.message })
     }
 };
+
 
 const updateAnecdota = async (req, res) => {
     const { id } = req.params;
@@ -77,6 +82,7 @@ const updateAnecdota = async (req, res) => {
     }
 };
 
+
 const deleteAnecdota = async (req, res) => {
     const { id } = req.params;
     try {
@@ -91,29 +97,27 @@ const deleteAnecdota = async (req, res) => {
     }
 };
 
+
+
 const searchAnecdotas = async (req, res) => {
     const { titulo, fecha } = req.query;
-
     try {
         let query = {};
-
         if (titulo) {
             const tituloRegex = new RegExp(titulo, 'i');
             query.titulo = { $regex: tituloRegex };
         }
-
         if (fecha) {
             query.fecha = new Date(fecha);
         }
-
         const anecdotas = await Anecdota.find(query);
-
         res.status(200).json(anecdotas);
     } catch (error) {
         console.error('Error al buscar Anecdotas:', error);
         res.status(500).json({ error: error.message });
     }
 };
+
 
 module.exports = {
     createNewAnecdota,

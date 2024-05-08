@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 
-const Inicio = () => {
+const AnecdotaByID = () => {
     return (
         <>
 
@@ -9,4 +9,4 @@ const Inicio = () => {
     )
 }
 
-export default Inicio;
+export default AnecdotaByID;
