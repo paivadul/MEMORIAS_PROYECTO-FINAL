@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 // import { Form, Input, Button} from 'antd';
 
-// import axios from 'axios';
+import axios from 'axios';
 // import { Link, useNavigate } from 'react-router-dom';
 const token = localStorage.getItem('token');
 
 const Visitas = () => {
-    const {data, setData} = useState([])
-    const {error, setError} = useState([])
+    const { data, setData } = useState([])
+    const { error, setError } = useState([])
+    const { events, setEvents } = useState([])
     // const navigate = useNavigate()
 
     const visitHandler = (e) => {
@@ -45,57 +46,57 @@ const Visitas = () => {
     return (
         <>
             <div className='cont-nota'>
-                <form action="/profile" method="post" enctype="multipart/form-data">
-                <label>
-                    Nombre:
+                <form>
+                    <label>
+                        Nombre:
                         <input
-                        type="text"
-                        name="nombre"
-                        value={data.nombre || ""}
-                        onChange={visitHandler}
-                        rules={[{ required: true, message: 'Por favor ingrese su nombre!' }]}
+                            type="text"
+                            name="nombre"
+                            value={data.nombre || ""}
+                            onChange={visitHandler}
+                            rules={[{ required: true, message: 'Por favor ingrese su nombre!' }]}
                         />
-                    {error.firstName && <span>{error.firstName}</span>}
-                </label>
-                <label>
-                    Nota:
+                        {error.firstName && <span>{error.firstName}</span>}
+                    </label>
+                    <label>
+                        Nota:
                         <input
-                        type="text"
-                        name="nota"
-                        value={data.nota || ""}
-                        onChange={visitHandler}
-                        rules={[{ required: true, message: 'Por favor ingrese su nota!' }]}
+                            type="text"
+                            name="nota"
+                            value={data.nota || ""}
+                            onChange={visitHandler}
+                            rules={[{ required: true, message: 'Por favor ingrese su nota!' }]}
                         />
-                    {error.firstName && <span>{error.firstName}</span>}
-                </label>
-                <label>
-                    Media:
+                        {error.firstName && <span>{error.firstName}</span>}
+                    </label>
+                    <label>
+                        Media:
                         <input
-                        type="file"
-                        name="media"
-                        value={data.media || ""}
-                        onChange={visitHandler}
+                            type="file"
+                            name="media"
+                            value={data.media || ""}
+                            onChange={visitHandler}
                         />
-                    {error.firstName && <span>{error.firstName}</span>}
-                </label>
-                <button onClick={publicarNota} className="sendButton">Publicar nota</button>
+                        {error.firstName && <span>{error.firstName}</span>}
+                    </label>
+                    <button onClick={publicarNota} className="sendButton">Publicar nota</button>
                 </form>
             </div>
 
             <div className='all-notas'>
-            {
-                data && data.length > 0 ? (            
-                    <div className="cont-data">
-                        {Object.keys(data).map((key, i) => (
-                            <notaData nota={data[key]} key={i} />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="vacio">
-                        <h1>No hay data disponibles</h1>
-                    </div>
-                ) 
-            }
+                {
+                    data && data.length > 0 ? (
+                        <div className="cont-data">
+                            {Object.keys(data).map((key, i) => (
+                                <notaData nota={data[key]} key={i} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="vacio">
+                            <h1>No hay data disponibles</h1>
+                        </div>
+                    )
+                }
             </div>
         </>
     )
