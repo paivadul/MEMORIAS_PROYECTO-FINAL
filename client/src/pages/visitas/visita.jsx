@@ -38,7 +38,7 @@ const Visitas = () => {
 
     return (
         <>
-        <NavBar />
+        <NavBar token={token}/>
         <div className='form-visit'>
             <FormVisits notas={notas} error={error}/>
             <button onClick={publicarNotas} className="sendButton">Publicar notas</button>

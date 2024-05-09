@@ -8,11 +8,9 @@ import Register from './pages/register';
 
 // import Inicio from './pages/inicio';
 import Visita from './pages/visitas/visita';
-// import Anecdotas from './components/anecdotas/anecdotas';
-// import AnecdotaByID from './components/anecdotas/anecdotas';
-// import Galeria from './components/galeria/galeria';
-// import Login from './pages/';
-
+// import Anecdotas from './pages/anecdotas/anecdotas';
+// import AnecdotaByID from './pages/anecdotas/anecdotaByID';
+// import Galeria from './pages/galeria/galeria';
 
 function App() {
   return (
