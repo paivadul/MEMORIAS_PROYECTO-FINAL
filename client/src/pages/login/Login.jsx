@@ -3,8 +3,6 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 
-const API_URL = 'http://localhost:8080/api/v1'; // URL of your Node.js server
-
 export const Login = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
