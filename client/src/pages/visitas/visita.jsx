@@ -8,8 +8,8 @@ import axios from 'axios';
 const token = localStorage.getItem('token');
 
 const Visitas = () => {
-    const { notas, setNotas } = useState([])
-    const { error, setError } = useState([])
+    const [ notas, setNotas] = useState([])
+    const [ error, setError] = useState([])
     // const navigate = useNavigate()
 
     const publicarNotas = () => {
