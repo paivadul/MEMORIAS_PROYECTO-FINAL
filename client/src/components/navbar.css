@@ -21,7 +21,7 @@
 
 /* Estilo de los enlaces */
 .link {
-    color: white;
+    color: #BF6F41;
     text-decoration: none;
     margin: 0 10px;
     padding: 5px 10px;
@@ -30,7 +30,8 @@
 }
 
 .link:hover {
-    background-color: #555;
+    background-color: #8C6E5D;
+    color: #e7e7e7;
 }
 
 /* Estilos para la información del usuario */
