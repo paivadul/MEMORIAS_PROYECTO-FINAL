@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-// import { Form, Input, Button} from 'antd';
 import FormVisits from '../../components/formVisits';
 import NavBar from '../../components/navbar';
 
 import axios from 'axios';
 // import { Link, useNavigate } from 'react-router-dom';
-const token = localStorage.getItem('token');
 
 const Visitas = () => {
     const { notas, setNotas } = useState([])
@@ -13,17 +11,8 @@ const Visitas = () => {
     // const navigate = useNavigate()
 
     const publicarNotas = () => {
-        if (!token) {
-            console.log('No se encontró un token en el localStorage');
-            return;
-        }
 
-        axios.get('http://localhost:8000/api/visita/new', {
-            withCredentials: true,
-            headers: {
-                Authorization: `Bearer ${token}` // Incluir el token en el encabezado de autorización
-            }
-        })
+        axios.get('http://localhost:8000/api/visita/new')
             .then((response) => {
                 setNotas(response.notas)
                 setError()
@@ -38,7 +27,7 @@ const Visitas = () => {
 
     return (
         <>
-        <NavBar token={token}/>
+        <NavBar/>
         <div className='form-visit'>
             <FormVisits notas={notas} error={error}/>
             <button onClick={publicarNotas} className="sendButton">Publicar notas</button>

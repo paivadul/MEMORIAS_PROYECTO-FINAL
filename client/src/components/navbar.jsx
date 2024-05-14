@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import logo from '../img/memorial_logo.png';
 import './navbar.css';
 import axios from 'axios';
+import GlobalContext from '../context/global-context';
 
-const NavBar = ({ token }) => {
-    const [user, setUser] = useState(null);
-    const { _id } = useParams();
+
+const NavBar = () => {
+    const { user, setUser } = useContext(GlobalContext);
+    // const [user, setUser] = useState(null);
+    const { id } = useParams();
 
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await axios.get(`http://localhost:8060/api/user/${_id}`, {
-                    withCredentials: true,
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const response = await axios.get(`http://localhost:8060/api/user/${id}`);
+                console.log('esto es response', response)
                 setUser(response.data);
             } catch (error) {
                 console.error(error);
             }
         };
         getUser();
-    }, [token]);
+    }, []);
 
-    console.log('esto es id', _id)
     useEffect(() => {
         console.log('esto es user', user);
     }, [user])
