@@ -1,9 +1,11 @@
-    import React, { useState } from 'react';
-    import axios from 'axios';
-    import { Link, useNavigate } from 'react-router-dom';
-    import './Login.css';
+import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import './Login.css';
+import GlobalContext from '../../context/global-context';
 
     export const Login = () => {
+        const { user, setUser } = useContext(GlobalContext);
         const navigate = useNavigate();
         const [formData, setFormData] = useState({
             email: '',
@@ -20,11 +22,16 @@
             try {
                 const response = await axios.post(`http://localhost:8060/api/login`, formData);
                 localStorage.setItem('userToken', response.data.token);
+                setUser(response.data.user)
                 navigate('/inicio');
             } catch (error) {
                 console.error('Error al iniciar sesión', error);
             }
         };
+
+        useEffect( () => {
+            console.log('esto es user', user);
+        }, [user])
 
         return (
             <div className="login-container">
