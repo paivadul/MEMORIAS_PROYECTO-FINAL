@@ -6,12 +6,15 @@ import GlobalContext from '../context/global-context';
 const Inicio = () => {
     const { user, setUser } = useContext(GlobalContext);
 
-    useEffect( () => {
+    useEffect(() => {
         console.log('esto es user-inicio', user);
     }, [user])
 
     return (
         <>
+            <h1> Inicio
+
+            </h1>
 
         </>
     )
