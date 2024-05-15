@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
 
-const AnecdotaByID = () => {
+export const AnecdotaByID = () => {
     return (
         <>
-
+    <h1>AnecdotaByID</h1>
         </>
     )
 }
-
-export default AnecdotaByID;

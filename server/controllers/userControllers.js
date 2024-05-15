@@ -1,74 +1,91 @@
-const { User } = require('../models/userModels');
+const { User } = require("../models/userModels");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const JWT_SECRET = "$ecRet0_"
+const JWT_SECRET = "$ecRet0_";
 
-module.exports.register = (req, res) => {
-    let userData = req.body
-    bcrypt.hash(userData.password, 10, (err, hash) => {
-        if (err) {
-            res.json({ error: err })
-        } else {
-            let user = new User({
-                ...userData,
-                password: hash
-            })
-            user.save()
-                .then((data) => {
-                    res.json({ data })
-                })
-                .catch((error) => {
-                    res.json({ error })
-                })
-        }
+module.exports.register = async (req, res) => {
+  let { email, password, firstName, lastName } = req.body;
+
+  if (!email || !password || !firstName || !lastName) {
+    return res.status(400).json({ error: "Todos los campos son obligatorios" });
+  }
+
+  if (password.length < 6) {
+    return res
+      .status(400)
+      .json({ error: "La contraseña debe tener al menos 6 caracteres" });
+  }
+
+  try {
+    let existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ error: "El usuario ya existe" });
+    }
+
+    let hashedPassword = await bcrypt.hash(password, 10);
+    let user = new User({
+      email,
+      password: hashedPassword,
+      firstName,
+      lastName,
     });
-}
+
+    let savedUser = await user.save();
+    res.status(201).json({ data: savedUser });
+  } catch (error) {
+    res.status(500).json({ error: "Error al registrar el usuario" });
+  }
+};
 
 module.exports.login = async (req, res) => {
-    let data = req.body;
+  let { email, password } = req.body;
 
-    try {
-        let user = await User.findOne({ email: data.email })
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ error: "Email y contraseña son obligatorios" });
+  }
 
-        let samePassword = await bcrypt.compareSync(data.password, user.password);
-        //si la contraseña coincide con la contraseña encriptada en la base de datos
-        if (samePassword) {
-            const payload = {
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName
-            }
-
-            //TOKEN: para que cree el Token y refresque en bucle
-            let token = jwt.sign(payload, JWT_SECRET, {
-                expiresIn: "24h"
-            });
-
-            //carga el token y el payload al json (datos del usuario)
-            res.json({
-                user: payload,
-                token,
-            })
-            //si no coinciden los datos de usuario con la base de datos (datos mal cargados o usuario no registrado)
-        } else {
-            res.json({ error: 'Usuario y contraseña equivocados' })
-        }
-    } catch (error) {
-        console.error(error)
-        res.json({ error: error.toString() })
+  try {
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
     }
-}
+
+    let isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Contraseña incorrecta" });
+    }
+
+    const payload = {
+      id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
+
+    let token = jwt.sign(payload, JWT_SECRET, {
+      expiresIn: "24h",
+    });
+
+    res.json({
+      user: payload,
+      token,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Error en el servidor" });
+  }
+};
 
 module.exports.getUserById = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const user = await User.findById(id);
-        if (!user) {
-            return res.status(404).json({ message: 'user not found' })
-        }
-        res.status(200).json(user)
-    } catch (error) {
-        res.status(500).json({ error: error.message })
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
     }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };

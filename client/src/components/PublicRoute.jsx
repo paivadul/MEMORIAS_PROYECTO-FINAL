@@ -1,9 +1,9 @@
-// PublicRoute.js
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "../context/AppProvider";
 
 export const PublicRoute = ({ children }) => {
-    const token = localStorage.getItem('userToken');
-    const isLoginOrRegisterRoute = window.location.pathname === '/login' || window.location.pathname === '/register';
-    return (!token || isLoginOrRegisterRoute) ? children : <Navigate to="/inicio" />;
-}
+  const { state } = useContext(AppContext);
+
+  return !state.isAuthenticated ? children : <Navigate to="/inicio" />;
+};

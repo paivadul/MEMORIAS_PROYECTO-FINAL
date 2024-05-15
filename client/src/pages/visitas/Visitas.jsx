@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import FormVisits from '../../components/formVisits';
-import NavBar from '../../components/navbar';
 
 import axios from 'axios';
 // import { Link, useNavigate } from 'react-router-dom';
 
-const Visitas = () => {
+export const Visitas = () => {
     const [ notas, setNotas] = useState([])
     const [ error, setError] = useState([])
     // const navigate = useNavigate()
@@ -27,7 +26,6 @@ const Visitas = () => {
 
     return (
         <>
-        <NavBar/>
         <div className='form-visit'>
             <FormVisits notas={notas} error={error}/>
             <button onClick={publicarNotas} className="sendButton">Publicar notas</button>
@@ -50,5 +48,3 @@ const Visitas = () => {
         </>
     )
 }
-
-export default Visitas;

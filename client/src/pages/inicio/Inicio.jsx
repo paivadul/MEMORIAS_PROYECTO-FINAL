@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import GlobalContext from '../context/global-context';
+import GlobalContext from '../../context/global-context';
 
 // import { Link, useNavigate } from 'react-router-dom';
 
-const Inicio = () => {
+export const Inicio = () => {
     const { user, setUser } = useContext(GlobalContext);
 
     useEffect( () => {
@@ -12,9 +12,7 @@ const Inicio = () => {
 
     return (
         <>
-
+<h1>inicio</h1>
         </>
     )
 }
-
-export default Inicio;

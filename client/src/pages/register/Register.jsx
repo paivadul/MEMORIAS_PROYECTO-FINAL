@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Input, Button, notification } from 'antd';
 
-const Register = () => {
+export const Register = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
@@ -79,5 +79,3 @@ const Register = () => {
     </div>
   );
 };
-
-export default Register;

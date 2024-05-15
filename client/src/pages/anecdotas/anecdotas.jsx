@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
+import React from 'react'
 
-const Anecdotas = () => {
-    return (
-        <>
-
-        </>
-    )
+export const anecdotas = () => {
+  return (
+    <div>anecdotas</div>
+  )
 }
-
-export default Anecdotas;
