@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 export const AnecdotaByID = () => {
     return (
         <>
-    <h1>AnecdotaByID</h1>
+            <h1>AnecdotaByID</h1>
         </>
     )
 }
