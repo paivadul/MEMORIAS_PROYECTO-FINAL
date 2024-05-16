@@ -46,8 +46,8 @@ const createNewAnecdota = (req, res) => {
 const getAllAnecdotas = async (req, res) => {
     try {
         const anecdotas = await Anecdota.find();
-        res.status(200).json(anecdotas);
-        res.send('Anecdota s enviadas')
+        res.status(200).json({ anecdotas, message: "Anecdotas enviadas" });
+        // res.send('Anecdota s enviadas') como piko 2 respuestas
     } catch (error) {
         console.error('Error al obtener anecdotas:', error);
         res.status(500).json({ error: error.message });
@@ -63,7 +63,7 @@ const getAnecdotaById = async (req, res) => {
             return res.status(404).json({ message: 'No se encontró la anecdota' })
         }
         res.status(200).json(anecdota)
-        res.send('Anecdota enviada por ID')
+        // res.send('Anecdota enviada por ID')
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
@@ -79,7 +79,7 @@ const updateAnecdota = async (req, res) => {
             return res.status(404).json({ message: 'No se pudo actualizar la anecdota' })
         }
         res.status(200).json(updatedAnecdota)
-        res.send('Anecdota actualizada')
+        // res.send('Anecdota actualizada')
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
@@ -94,7 +94,7 @@ const deleteAnecdota = async (req, res) => {
             return res.status(404).json({ message: 'No se pudo eliminar la anecdota' })
         }
         res.status(200).json({ message: 'Anecdota eliminada' })
-        res.send('Anecdota eliminada')
+        // res.send('Anecdota eliminada')
     } catch (error) {
         res.status(500).json({ error: error.message })
     }

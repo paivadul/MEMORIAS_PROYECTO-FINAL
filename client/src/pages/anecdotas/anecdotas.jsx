@@ -1,43 +1,33 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
 
-const Anecdota = ({ titulo, fecha, descripcion, media }) => {
-  return (
-    <div className="anecdota">
-      <img src={media} alt={titulo} className="anecdota-media" />
-      <div className="anecdota-info">
-        <h2>{titulo}</h2>
-        <p>{fecha}</p>
-        <p>{descripcion}</p>
-      </div>
-    </div>
-  );
-};
 
-const AnecdotasList = ({ anecdotas }) => {
-  return (
-    <div className="anecdotas-list">
-      {anecdotas.map((anecdota) => (
-        <Anecdota key={anecdota._id} {...anecdota} />
-      ))}
-    </div>
-  );
-};
+export const Anecdotas = () => {
+  const getAllAnecdotas = async () => {
+    const userToken = localStorage.getItem('userToken');
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      }
+    };
 
-const App = () => {
-  const [anecdotas, setAnecdotas] = React.useState([]);
+    try {
+      const response = await axios.get('http://localhost:8060/api/anecdota/all', config);
+      console.log(response.data); // Aquí mostramos la respuesta del servidor en la consola
 
-  React.useEffect(() => {
-    fetch('/api/anecdotas')
-      .then((response) => response.json())
-      .then((data) => setAnecdotas(data));
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.status === 401) {
+        console.log('Refrescar token y reintentar');
+      }
+    }
+  };
+
+  useEffect(() => {
+    getAllAnecdotas();
   }, []);
 
   return (
-    <div className="app">
-      <h1>MEMORIAS</h1>
-      <AnecdotasList anecdotas={anecdotas} />
-    </div>
+    <h1>Anecdotas</h1>
   );
 };
-
-export default App;

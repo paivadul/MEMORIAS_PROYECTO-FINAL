@@ -22,7 +22,7 @@ export const Galeria = () => {
             }
         }
     };
-    
+
     useEffect(() => {
         getAlldata();
     }, []);
