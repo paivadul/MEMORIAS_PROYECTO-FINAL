@@ -1,3 +1,12 @@
+.cont-all-visit {
+    display:flex;
+    /* flex-direction: column; */
+}
+
+.form-visit, .all-notas{
+    background-color: #f0f0f0;
+    padding: 40px;
+}
 .form-button {
     padding: 10px 15px;
     color: white;
@@ -22,3 +31,4 @@
     text-decoration: underline;
     color: #0056b3;
 }
+
