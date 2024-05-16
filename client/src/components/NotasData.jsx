@@ -2,6 +2,8 @@ import React from 'react'
 import './notasData.css';
 
 export const NotasData = ({ notas }) => {
+    console.log(notas)
+
     return (
         <div className='notas-card'>
             <div className='notas-info'>

@@ -34,8 +34,8 @@ export const FormVisits = () => {
     };
 
     return (
-        <div className='form-container'>
-            <form className="form-form" onSubmit={sendNotaHandler}>
+        <div className='form-container' >
+            <form className="form-form" action="/profile" method="post" enctype="multipart/form-data" onSubmit={sendNotaHandler}>
                 <label>
                     Nombre:
                     <input

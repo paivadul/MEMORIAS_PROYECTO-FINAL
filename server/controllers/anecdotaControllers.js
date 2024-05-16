@@ -9,7 +9,10 @@ const anecdotaSchema = anecdota => ({
 });
 
 const createNewAnecdota = (req, res) => {
+    console.log('esto es req.body fuera del try', req.body)
+
     try {
+        console.log('esto es req.body', req.body)
         // Utilizar el middleware de Multer para manejar la carga de archivos
         upload.single('media')(req, res, (err) => {
             if (err) {
@@ -35,7 +38,7 @@ const createNewAnecdota = (req, res) => {
                 });
         });
     } catch (error) {
-        console.error('Error al crear una nueva anecdota:', error);
+        console.error('Error en la nueva anecdota:', error);
         res.status(400).json({ error: error.message });
     }
 };
