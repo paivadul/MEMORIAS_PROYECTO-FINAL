@@ -1,4 +1,4 @@
-.notas-card{
+.card-media{
     padding: 20px;
     display: flex;
     background-color: #f0f0f0;
@@ -11,4 +11,11 @@
     height: auto; /* Altura automática para mantener la proporción */
     overflow: hidden;
     text-align: left;
+}
+
+.cont-media{
+    display: flex;
+    flex-wrap: column;
+    justify-content: space-around;
+    padding: 20px;
 }

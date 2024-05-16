@@ -1,4 +1,5 @@
 import React from 'react'
+import './notasData.css';
 
 export const NotasData = ({ notas }) => {
     return (

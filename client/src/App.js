@@ -4,11 +4,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { PublicRoute } from "./components/PublicRoute";
 import { AppProvider } from "./context/AppProvider";
 import { Navbar } from "./components/Navbar";
-import { Inicio, Login, Register, Visitas } from "./pages";
-
-// import Anecdotas from './pages/anecdotas/anecdotas';
-// import AnecdotaByID from './pages/anecdotas/anecdotaByID';
-// import Galeria from './pages/galeria/galeria';
+import { Galeria, Inicio, Login, Register, Visitas } from "./pages";
 
 export const App = () => {
   const location = useLocation(); // Obtiene la ubicación actual
@@ -51,9 +47,14 @@ export const App = () => {
               </PrivateRoute>
             }
           />
-          {/* <Route path="/anecdotas" element={<PrivateRoute><Anecdotas /></PrivateRoute>} />
-          <Route path="/anecdota/:id" element={<PrivateRoute><AnecdotaByID /></PrivateRoute>} />
-          <Route path="/galeria" element={<PrivateRoute><Galeria /></PrivateRoute>} /> */}
+          <Route
+            path="/galeria"
+            element={
+              <PrivateRoute>
+                <Galeria />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </div>
     </AppProvider>

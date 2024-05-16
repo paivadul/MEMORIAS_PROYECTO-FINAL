@@ -3,7 +3,7 @@
     /* flex-direction: column; */
 }
 
-.form-visit, .all-notas{
+.form-visit{
     background-color: #f0f0f0;
     padding: 40px;
 }
@@ -32,3 +32,9 @@
     color: #0056b3;
 }
 
+.cont-notas{
+    display: flex;
+    flex-wrap: column;
+    justify-content: space-around;
+    padding: 20px;
+}
