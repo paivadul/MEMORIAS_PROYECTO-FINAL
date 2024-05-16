@@ -7,7 +7,6 @@ export const Inicio = () => {
     const { user, setUser } = useContext(GlobalContext);
 
     useEffect(() => {
-        console.log('esto es user-inicio', user);
     }, [user])
 
     return (

@@ -23,7 +23,6 @@ export const Login = () => {
         try {
             const response = await axios.post('http://localhost:8060/api/login', formData);
             localStorage.setItem('userToken', response.data.token);
-            console.log(response);
             localStorage.setItem('user', JSON.stringify(response.data.user));
             localStorage.setItem('isAuthenticated', 'true');
             setState({

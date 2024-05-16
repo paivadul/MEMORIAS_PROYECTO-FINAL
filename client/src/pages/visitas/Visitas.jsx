@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { FormVisits, NotasData } from '../../components';
-
 import './visitas.css';
 
 export const Visitas = () => {
     const [ notas, setNotas] = useState([])
 
-    
-    const getAllNotas = () => {
-        axios.get('http://localhost:8060/api/visita/all')
-        .then((response) => {
+    const getAllNotas = async () => {
+        const userToken = localStorage.getItem('userToken');
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        };
+        try {
+            const response = await axios.get('http://localhost:8060/api/visita/all', config);
             setNotas(response.data);
-        })
-        .catch((error) => {
+        } catch (error) {
             console.log(error);
             if (error.response && error.response.status === 401) {
                 console.log('Refrescar token y reintentar');
             }
-        });
+        }
     };
     
     useEffect(() => {
         getAllNotas();
-    }, []);
-    console.log('esto es notas:',notas)
+    }, [setNotas]); // Asegúrate de volver a cargar las notas cuando cambie el usuario
 
     return (
         <>

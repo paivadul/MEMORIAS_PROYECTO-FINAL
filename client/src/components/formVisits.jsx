@@ -2,37 +2,35 @@ import React, { useState } from "react";
 import './formVisits.css';
 import axios from 'axios';
 
+import { AppContext } from '../context/AppProvider';
 
 export const FormVisits = () => {
-    const [nota, setNota] = useState({
-        nombre: '',
-        nota: '',
-        media: ''
-    });
-    const [errors, setErrors] = useState({});
+    const [nota, setNota] = useState([]);
+    const [error, setError] = useState('');
 
     const visitHandler = (e) => {
         const { name, value } = e.target;
         setNota({ ...nota, [name]: value });
-        setErrors({ ...errors, [name]: '' });
-        console.log(nota);
+        setError({ ...error, [name]: '' });
     };
 
     const sendNotaHandler = async (e) => {
         e.preventDefault();
+        const userToken = localStorage.getItem('userToken');
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        };
         try {
-            await axios.post('http://localhost:8060/api/visita/new', nota);
-            setNota({
-                nombre: '',
-                nota: '',
-                media: ''
-            });
+            await axios.post('http://localhost:8060/api/visita/new', nota, config);
+            setNota(nota);
+            console.log(nota)
         } catch (error) {
-            if (error.response && error.response.data && error.response.data.errors) {
-                setErrors(error.response.data.errors);
+            if (error.response && error.response.data && error.response.data.error) {
+                setError(error.response.data.error);
             } else {
-                console.error('Error al enviar los datos de la nota:', error.message);
-                setErrors({ general: "Error al enviar los datos. Por favor, intente nuevamente." });
+                setError({ general: "Error al enviar los datos. Por favor, intente nuevamente." });
             }
         }
     };
@@ -50,7 +48,7 @@ export const FormVisits = () => {
                         onChange={visitHandler}
                         rules={[{ required: true, message: 'Por favor ingrese su nombre!' }]}
                     />
-                    {errors.nombre && <span>{errors.nombre}</span>}
+                    {error.nombre && <span>{error.nombre}</span>}
                 </label>
                 <label>
                     Nota:
@@ -62,7 +60,7 @@ export const FormVisits = () => {
                         onChange={visitHandler}
                         rules={[{ required: true, message: 'Por favor ingrese su nota!' }]}
                     />
-                    {errors.nota && <span>{errors.nota}</span>}
+                    {error.nota && <span>{error.nota}</span>}
                 </label>
                 <label>
                     Media:
@@ -72,7 +70,7 @@ export const FormVisits = () => {
                         value={nota.media || ""}
                         onChange={visitHandler}
                     />
-                    {errors.media && <span>{errors.media}</span>}
+                    {error.media && <span>{error.media}</span>}
                 </label>
                 <button type="submit" className="sendButton">Publicar notas</button>
             </form>
