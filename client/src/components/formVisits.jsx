@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import './formVisits.css';
 import axios from 'axios';
 
-import { AppContext } from '../context/AppProvider';
-
 export const FormVisits = () => {
     const [nota, setNota] = useState([]);
     const [error, setError] = useState('');
