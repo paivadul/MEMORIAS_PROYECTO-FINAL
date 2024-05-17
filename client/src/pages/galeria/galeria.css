@@ -15,7 +15,7 @@
 
 .cont-media{
     display: flex;
-    flex-wrap: column;
+    flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;
 }
