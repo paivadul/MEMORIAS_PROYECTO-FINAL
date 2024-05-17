@@ -1,6 +1,6 @@
 import React from "react";
 import React, { useContext, useEffect } from 'react';
-import GlobalContext from '../../context/global-context';
+import { GlobalContext } from "../../context/GlobalContext";
 
 export const UserInfo = () => {
     const { user} = useContext(GlobalContext);

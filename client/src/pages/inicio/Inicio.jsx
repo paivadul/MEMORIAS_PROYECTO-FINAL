@@ -1,7 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import GlobalContext from '../../context/global-context';
-
-// import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 
 export const Inicio = () => {
     const { user, setUser } = useContext(GlobalContext);

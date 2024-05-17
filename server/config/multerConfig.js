@@ -18,19 +18,9 @@ const storage = multer.diskStorage({
     }
 });
 
-// // Función de filtro para permitir solo ciertos tipos de archivos
-// const fileFilter = function (req, file, cb) {
-//     if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('audio/') || file.mimetype.startsWith('video/')) {
-//         cb(null, true); // Aceptar el archivo
-//     } else {
-//         cb(new Error('Tipo de archivo no admitido'), false); // Rechazar el archivo
-//     }
-// };
-
 // Configuración de Multer
 const upload = multer({ 
     storage: storage,
-    // fileFilter: fileFilter
 });
 
 module.exports = upload;

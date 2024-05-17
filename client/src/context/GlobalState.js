@@ -1,7 +1,7 @@
-import GlobalContext from "./global-context";
 import { useState } from "react";
+import { GlobalContext } from "./GlobalContext";
 
-const GlobalState = (props) => {
+export const GlobalState = (props) => {
     const [user, setUser] = useState({})
 
     return (
@@ -19,5 +19,3 @@ const GlobalState = (props) => {
         </GlobalContext.Provider>
     )
 }
-
-export default GlobalState;
