@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 
-export const Inicio = () => {
+export const Home = () => {
     const { user, setUser } = useContext(GlobalContext);
 
     useEffect(() => {
