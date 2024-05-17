@@ -2,7 +2,7 @@ import React from "react";
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from "../../context/GlobalContext";
 
-export const UserInfo = () => {
+export const Usuario = () => {
     const { user} = useContext(GlobalContext);
 
     useEffect(() => {
@@ -10,7 +10,7 @@ export const UserInfo = () => {
 
     return (
         <>
-            <h1>UserInfo</h1>
+            <h1>Usuario</h1>
         </>
     )
 }

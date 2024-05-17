@@ -4,7 +4,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { PublicRoute } from "./components/PublicRoute";
 import { AppProvider } from "./context/AppProvider";
 import { Navbar } from "./components/Navbar";
-import { Anecdota, Anecdotas, Inicio, Login, Register, Visitas } from "./pages";
+import { Anecdotas, Inicio, Login, Register, Usuario, Visitas } from "./pages";
 import { Galeria } from "./pages/galeria/Galeria";
 
 export const App = () => {
@@ -62,6 +62,14 @@ export const App = () => {
               <PrivateRoute>
                 <Anecdotas />
               </PrivateRoute>
+            }
+          />
+          <Route
+            path="/usuario"
+            element={
+              <PublicRoute>
+                <Usuario />
+              </PublicRoute>
             }
           />
         </Routes>
