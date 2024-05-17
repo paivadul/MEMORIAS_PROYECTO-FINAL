@@ -4,8 +4,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    background-color: #e7e7e7;
-    color: #BF6F41;
+    background-color: #f5f4f4;
+    color: #DD901C;
 }
 
 /* Estilo del logo */
@@ -21,7 +21,7 @@
 
 /* Estilo de los enlaces */
 .link {
-    color: #BF6F41;
+    color: #DD901C;
     text-decoration: none;
     margin: 0 10px;
     padding: 5px 10px;
@@ -63,4 +63,22 @@
     .link {
         margin: 5px 0;
     }
+}
+
+.navbar-button{
+    display: flex;
+    gap: 10px;
+}
+.logout-button{
+    background-color: white;
+    color: #DD901C;
+    border: 2px solid #DD901C;
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.logout-button:hover{
+    background-color: #DD901C;
+    color: white;
 }

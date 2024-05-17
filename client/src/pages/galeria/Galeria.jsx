@@ -31,7 +31,7 @@ export const Galeria = () => {
         <>
             <div className='cont-media'>
                 <div className='all-media'>
-                    {data.length > 0 ? (
+                    {data?.length > 0 ? (
                         <div className="cont-media">
                             {data.map((anecdota, i) => (
                                 <div className="card-media" key={i}>

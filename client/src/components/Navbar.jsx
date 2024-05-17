@@ -38,9 +38,10 @@ export const Navbar = () => {
                 <Link className="link" to={`/usuario`}>Usuario</Link>
             </div>
             {user ? (
-                <div>
-                    <h4 className='user-name'>{user.firstName}</h4>
-                    <button className="link" onClick={handleLogout}>Cerrar sesión</button>
+                <div className='navbar-button'>
+                    <p className='user-name'>{user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)} {user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)}</p>
+                    {/* <p className='user-email'>{user.email}</p> */}
+                    <button className="logout-button" onClick={handleLogout}>Cerrar sesión</button>
                 </div>
             ) : (
                 <Link className="link" to={`/login`}>Iniciar sesión</Link>

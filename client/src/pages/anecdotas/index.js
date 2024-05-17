@@ -1,2 +1,2 @@
-export * from "./AnecdotaByID";
 export * from "./Anecdotas";
+export * from "./AnecdotaByID";

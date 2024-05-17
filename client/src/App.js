@@ -4,13 +4,13 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { PublicRoute } from "./components/PublicRoute";
 import { AppProvider } from "./context/AppProvider";
 import { Navbar } from "./components/Navbar";
-import { Anecdotas, Home, Login, Register, Usuario, Visitas } from "./pages";
+import { Anecdota, Anecdotas, Inicio, Login, Register, Visitas } from "./pages";
 import { Galeria } from "./pages/galeria/Galeria";
 
 export const App = () => {
   const location = useLocation(); // Obtiene la ubicación actual
   const hideNavbarRoutes = ["/login", "/register"];
-  
+
   return (
     <AppProvider>
       <div className="App">
@@ -62,14 +62,6 @@ export const App = () => {
             element={
               <PrivateRoute>
                 <Anecdotas />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/usuario"
-            element={
-              <PrivateRoute>
-                <Usuario />
               </PrivateRoute>
             }
           />

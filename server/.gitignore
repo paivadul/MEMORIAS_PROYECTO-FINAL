@@ -11,6 +11,12 @@
 # production
 /build
 
+# Ignorar todos los archivos en la carpeta upload
+upload/*
+
+# Exceptuar el archivo README en la carpeta upload
+!upload/README.md
+
 # misc
 .DS_Store
 .env.local
