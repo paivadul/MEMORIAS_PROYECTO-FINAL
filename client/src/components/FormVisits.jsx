@@ -30,7 +30,7 @@ export const FormVisits = () => {
                 'Content-Type': 'multipart/form-data'
             }
         };
-        
+
         try {
             await axios.post('http://localhost:8060/api/visita/new', formData, config);
             setNota({ nombre: '', nota: '', media: null });
@@ -79,3 +79,5 @@ export const FormVisits = () => {
         </div>
     )
 }
+
+console.log("onichan para que se acualite el componente")
