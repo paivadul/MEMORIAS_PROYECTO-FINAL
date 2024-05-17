@@ -38,3 +38,8 @@
     justify-content: space-around;
     padding: 20px;
 }
+
+.all-notas{
+    display: flex;
+    justify-content: space-around;
+}

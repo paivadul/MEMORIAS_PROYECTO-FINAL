@@ -2,17 +2,16 @@ import React from 'react'
 import './notasData.css';
 
 export const NotasData = ({ notas }) => {
-    console.log(notas)
 
     return (
         <div className='notas-card'>
-            <div className='notas-info'>
-                <h4 className='notas-name'>{notas.nombre}</h4>
-                <p className='notas-description'>{notas.nota}</p>
+            <div>
+                <h4>{notas.nombre}</h4>
+                <p>{notas.nota}</p>
             </div>
             {
                 notas.media ? (
-                    <img src={notas.media} alt={notas.nombre} className='notas-image'></img>
+                    <img src={`http://localhost:8060/static/${notas.media}`} alt={notas.nombre} className='media'></img>
                 ) : ''
             }
         </div>

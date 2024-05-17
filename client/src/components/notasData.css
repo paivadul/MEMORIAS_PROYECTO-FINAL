@@ -11,4 +11,6 @@
     height: auto; /* Altura automática para mantener la proporción */
     overflow: hidden;
     text-align: left;
-}
+    display: flex;
+    flex-direction: column; 
+};

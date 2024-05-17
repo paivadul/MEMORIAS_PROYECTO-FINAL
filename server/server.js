@@ -1,11 +1,11 @@
 const express = require('express');
+const cors = require('cors');
+const path = require('path');
 
 const app = express();
-const cors = require('cors');
 
 // Middlewares
 app.use(express.json());
-
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
@@ -14,6 +14,9 @@ app.use(cors({
 // Conexión a la base de datos
 const conectarDB = require('./config/config');
 conectarDB();
+
+// Servir archivos estáticos desde el directorio 'upload'
+app.use('/static', express.static(path.join(__dirname, 'upload')));
 
 // Usuario: inicio de sesión y registro
 const authRoutes = require('./routes/authRoutes');

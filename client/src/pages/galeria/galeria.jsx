@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './galeria.css'
+import './galeria.css';
 
 export const Galeria = () => {
     const [data, setData] = useState([]);
@@ -14,7 +14,7 @@ export const Galeria = () => {
         };
         try {
             const response = await axios.get('http://localhost:8060/api/anecdota/all', config);
-            setData(response.data);
+            setData(response.data.anecdotas);
         } catch (error) {
             console.log(error);
             if (error.response && error.response.status === 401) {
@@ -33,10 +33,10 @@ export const Galeria = () => {
                 <div className='all-media'>
                     {data.length > 0 ? (
                         <div className="cont-media">
-                            {data.map((item, i) => (
+                            {data.map((anecdota, i) => (
                                 <div className="card-media" key={i}>
-                                    <h2>{item.titulo}</h2>
-                                    <img src={item.media} alt={item.titulo} className="anecdota-media" />
+                                    <h2>{anecdota.titulo}</h2>
+                                    <img src={`http://localhost:8060/static/${anecdota.media}`} alt={anecdota.titulo} className="anecdota-media" />
                                 </div>
                             ))}
                         </div>

@@ -19,3 +19,8 @@
     justify-content: space-around;
     padding: 20px;
 }
+
+.media{
+    height: 200px;
+    width: auto;
+}
