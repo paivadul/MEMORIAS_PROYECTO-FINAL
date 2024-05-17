@@ -35,11 +35,11 @@ export const Navbar = () => {
                 <Link className="link" to={`/anecdotas`}>Anécdotas</Link>
                 <Link className="link" to={`/visitas`}>Mural de Visitas</Link>
                 <Link className="link" to={`/galeria`}>Galería</Link>
+                <Link className="link" to={`/usuario`}>Usuario</Link>
             </div>
             {user ? (
                 <div>
                     <h4 className='user-name'>{user.firstName}</h4>
-                    <p className='user-email'>{user.email}</p>
                     <button className="link" onClick={handleLogout}>Cerrar sesión</button>
                 </div>
             ) : (

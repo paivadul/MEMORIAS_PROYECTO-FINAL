@@ -5,7 +5,6 @@ import './galeria.css';
 export const Galeria = () => {
     const [data, setData] = useState([]);
 
-    console.log('acá se imprimen tus mommy issues')
     const getAlldata = async () => {
         const userToken = localStorage.getItem('userToken');
         const config = {
