@@ -3,7 +3,7 @@ const JWT_SECRET = "$ecRet0_";
 
 const verifyToken = (req, res, next) => {
     const header = req.header("Authorization") || "";
-    console.log(header)
+    // console.log(header)
     const token = header.split(" ")[1];
 
     if (!token) {
