@@ -36,7 +36,7 @@ export const Galeria = () => {
                             {data.map((anecdota, i) => (
                                 <div className="card-media" key={i}>
                                     <h2>{anecdota.titulo}</h2>
-                                    <img src={`http://localhost:8060/static/${anecdota.media}`} alt={anecdota.titulo} className="anecdota-media" />
+                                    <img src={`http://localhost:8060/static/${anecdota.media}`} alt={anecdota.titulo} className="media" />
                                 </div>
                             ))}
                         </div>
