@@ -1,0 +1,85 @@
+.header_anecdota {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+    align-items: center;
+    /* width: 100%; */
+    /* margin-bottom: 20px; */
+}
+
+.anecdotas_container {
+    margin: 0;
+    padding: 0;
+    
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /* padding: 0 10%; */
+    /* background-color: antiquewhite; */
+}
+
+.anecdota_card {
+    position: relative;
+    width: 350px;
+    background-color: #f5f4f4;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-bottom: 20px; /* Para separar las tarjetas entre sí */
+}
+
+.anecdota_card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.anecdota_card h3 {
+    text-align: center;
+    margin: 10px 0;
+    color: #DD901C;
+}
+
+.anecdota_card p:first-of-type {
+    padding: 0 15px;
+}
+
+.anecdota_card a {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+.fecha_anecdota {
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    padding: 2px 5px;
+    top: 4px;
+    right: 5px;
+    background-color: #FFFFFF;
+    color: #C2C1C1;
+    border-radius: 10px;
+    font-size: 0.9em;
+}
+.buttonCrearAnecdota{
+    background-color: #D98300;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+
+}
+.buttonCrearAnecdota:active{
+    background-color: #DD901C;
+}
+
+.buttonCrearAnecdota:hover{
+    background-color: #DD901C;
+}
+.buttonCrearAnecdota:focus{
+    outline: none;
+}
