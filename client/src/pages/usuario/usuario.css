@@ -1,0 +1,45 @@
+.cont-all-visit {
+    display:flex;
+    /* flex-direction: column; */
+}
+
+.form-visit{
+    background-color: #f0f0f0;
+    padding: 40px;
+}
+.form-button {
+    padding: 10px 15px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+    background-color: #0056b3;
+}
+
+.form-link {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form-link:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.cont-notas{
+    display: flex;
+    flex-wrap: column;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.all-notas{
+    display: flex;
+    justify-content: space-around;
+}

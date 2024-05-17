@@ -10,6 +10,7 @@ import { Galeria } from "./pages/galeria/Galeria";
 export const App = () => {
   const location = useLocation(); // Obtiene la ubicación actual
   const hideNavbarRoutes = ["/login", "/register"];
+  
   return (
     <AppProvider>
       <div className="App">
@@ -67,9 +68,9 @@ export const App = () => {
           <Route
             path="/usuario"
             element={
-              <PublicRoute>
+              <PrivateRoute>
                 <Usuario />
-              </PublicRoute>
+              </PrivateRoute>
             }
           />
         </Routes>
