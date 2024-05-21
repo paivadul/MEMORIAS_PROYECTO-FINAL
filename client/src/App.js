@@ -7,14 +7,13 @@ import { Navbar } from "./components/Navbar";
 import {
   AnecdotaByID,
   Anecdotas,
+  EditAnecdota,
   Galeria,
-  Home,
   Login,
   Register,
   Usuario,
   Visitas,
 } from "./pages";
-import { CreateAnecdota } from "./components";
 
 export const App = () => {
   const location = useLocation(); // Obtiene la ubicación actual
@@ -43,14 +42,6 @@ export const App = () => {
             }
           />
           <Route
-            path="/inicio"
-            element={
-              <PrivateRoute>
-                <Home />
-              </PrivateRoute>
-            }
-          />
-          <Route
             path="/visitas"
             element={
               <PrivateRoute>
@@ -74,20 +65,19 @@ export const App = () => {
               </PrivateRoute>
             }
           />
-
-          <Route
-            path="/anecdotas/crear"
-            element={
-              <PrivateRoute>
-                <CreateAnecdota />
-              </PrivateRoute>
-            }
-          />
           <Route
             path="/anecdotas/:id"
             element={
               <PrivateRoute>
                 <AnecdotaByID />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/anecdotas/edit/:id"
+            element={
+              <PrivateRoute>
+                <EditAnecdota />
               </PrivateRoute>
             }
           />

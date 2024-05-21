@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Container, Box, Typography } from '@mui/material';
 import { FormVisits, NotasData } from '../../components';
-import './visitas.css';
 
 export const Visitas = () => {
-    const [ notas, setNotas] = useState([])
+    const [notas, setNotas] = useState([]);
 
     const getAllNotas = async () => {
         const userToken = localStorage.getItem('userToken');
@@ -23,31 +23,29 @@ export const Visitas = () => {
             }
         }
     };
-    
+
     useEffect(() => {
         getAllNotas();
-    }, [setNotas]); // Asegúrate de volver a cargar las notas cuando cambie el usuario
+    }, []);
 
     return (
-        <>
-            <div className='cont-all-visit'>
-                <div className='form-visit'>
-                    <FormVisits />
-                </div>
-                <div className='all-notas'>
-                    {notas ? (
-                        <div className="cont-notas">
-                            {Object.keys(notas).map((key, i) => (
-                                <NotasData notas={notas[key]} key={i} />
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="vacio">
-                            <h1>No hay notas disponibles</h1>
-                        </div>
-                    )}
-                </div>
-            </div>
-        </>
-    )
+        <Container sx={{ display: 'flex', justifyContent: 'space-between', padding: 2, gap: 2 }}>
+            <Box sx={{ padding: 2, borderRadius: 1, width: '100%', maxWidth: 350, backgroundColor: 'primary.light' }}>
+                <FormVisits />
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 2, gap: 2, flexWrap: 'wrap' }}>
+                {notas.length > 0 ? (
+                    <Box sx={{ display: 'flex', flex: 2, gap: 2 }}>
+                        {Object.keys(notas).map((key, i) => (
+                            <NotasData notas={notas[key]} key={i} />
+                        ))}
+                    </Box>
+                ) : (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', fontSize: 24 }}>
+                        <Typography variant="h6">No hay notas disponibles</Typography>
+                    </Box>
+                )}
+            </Box>
+        </Container>
+    );
 }

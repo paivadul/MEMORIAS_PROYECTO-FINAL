@@ -1,45 +1,30 @@
-.cont-all-visit {
-    display:flex;
-    /* flex-direction: column; */
+/* Estilos generales */
+.container {
+    margin: 20px;
 }
 
-.form-visit{
-    background-color: #f0f0f0;
-    padding: 40px;
-}
-.form-button {
-    padding: 10px 15px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.form-button:hover {
-    background-color: #0056b3;
-}
-
-.form-link {
-    font-size: 14px;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.form-link:hover {
-    text-decoration: underline;
-    color: #0056b3;
-}
-
-.cont-notas{
-    display: flex;
-    flex-wrap: column;
-    justify-content: space-around;
+/* Estilos del formulario */
+.form-container {
+    background-color: #FFF7EB;
     padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.all-notas{
-    display: flex;
-    justify-content: space-around;
+/* Estilos de la tabla */
+.nota-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.nota-table th, .nota-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.empty-state {
+    text-align: center;
+    color: #BFBBB8;
 }

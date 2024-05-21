@@ -1,19 +1,21 @@
-import React from 'react'
-import './notasData.css';
+import React from 'react';
+import { Box, Typography, Card, CardContent, CardMedia } from '@mui/material';
 
 export const NotasData = ({ notas }) => {
-
     return (
-        <div className='notas-card'>
-            <div>
-                <h4>{notas.nombre}</h4>
-                <p>{notas.nota}</p>
-            </div>
-            {
-                notas.media ? (
-                    <img src={`http://localhost:8060/static/${notas.media}`} alt={notas.nombre} className='media'></img>
-                ) : ''
-            }
-        </div>
-    )
+        <Card sx={{ mb: 2, display: 'flex', flexDirection: 'column', width: '100%', maxWidth: 250 }}>
+            <CardContent>
+                <Typography variant="h6">{notas.nombre}</Typography>
+                <Typography variant="body1">{notas.nota}</Typography>
+            </CardContent>
+            {notas.media && (
+                <CardMedia
+                    component="img"
+                    image={`http://localhost:8060/static/${notas.media}`}
+                    alt={notas.nombre}
+                    sx={{ maxHeight: 200, objectFit: 'cover' }}
+                />
+            )}
+        </Card>
+    );
 }

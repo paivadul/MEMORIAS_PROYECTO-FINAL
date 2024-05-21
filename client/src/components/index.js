@@ -7,5 +7,3 @@ export * from "./AnecdotaData";
 
 export * from "./PrivateRoute";
 export * from "./PublicRoute";
-
-export * from "./CreateAnecdota";

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './deleteButton.css';
+import { Button } from '@mui/material';
 
 export const DeleteButton = ({ id }) => {
     const handleDelete = async () => {
@@ -12,16 +12,15 @@ export const DeleteButton = ({ id }) => {
         };
         try {
             await axios.delete(`http://localhost:8060/api/anecdota/delete/${id}`, config);
-            // Aquí puedes añadir lógica para actualizar la lista de anécdotas en el estado del padre
-            console.log('Anécdota eliminada');
+            window.location.reload(); // Recargar la página
         } catch (error) {
             console.error('Error al eliminar la anécdota:', error);
         }
     };
 
     return (
-        <button className="delete-button" onClick={handleDelete}>
+        <Button variant="contained" color="secondary" onClick={handleDelete}>
             Eliminar
-        </button>
+        </Button>
     );
 };

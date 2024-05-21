@@ -1,29 +1,28 @@
-.anecdotaid_container{
-    /* background-color: bisque; */
+.anecdotaid_container {
     height: 80vh;
     display: flex;
     height: 100%;
 }
 
-.anecdotaid-info{
-    /* flex: 1; */
+.anecdotaid-info {
     width: 40%;
     padding: 0 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    /* height: 1000px; */
 }
-.anecdotaid-info h3{
+
+.anecdotaid-info h3 {
     text-align: center;
-    color: #DD901C;
     font-size: 2em;
 }
-.anecdotaid-info p{
+
+.anecdotaid-info p {
     text-align: justify;
     font-size: 1.2em;
 }
-.anecdotaid_container img{
+
+.anecdotaid_container img {
     width: 100%;
     height: 100%;
     flex: 1;

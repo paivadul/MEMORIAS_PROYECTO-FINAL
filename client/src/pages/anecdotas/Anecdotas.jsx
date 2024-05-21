@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/anecdotas/anecdotas.css';
+import { Box, Button, Typography } from '@mui/material';
 
 export const Anecdotas = () => {
   const [data, setData] = useState([]);
@@ -18,7 +18,7 @@ export const Anecdotas = () => {
       const response = await axios.get('http://localhost:8060/api/anecdota/all', config);
       setData(response.data);
     } catch (error) {
-      console.log(error);
+      console.error('Error al obtener las anécdotas:', error);
       if (error.response && error.response.status === 401) {
         console.log('Refrescar token y reintentar');
       }
@@ -38,34 +38,26 @@ export const Anecdotas = () => {
     getAllAnecdotas();
   }, []);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <>
-      <header className='header_anecdota'>
-        <h1>Lista de Anecdotas</h1>
-        <Link to="/anecdotas/crear" className='buttonCrearAnecdota'>Crear Anécdota</Link>
-      </header>
-      <section className='anecdotas_container'>
+      <Box sx={{ padding: '20px', textAlign: 'center' }}>
+        <Typography variant="h3" component="h1">Anécdotas</Typography>
+      </Box>
+      <section className='anecdotas_container' style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '20px' }}>
         {data.map((anecdota) => (
-          <div key={anecdota._id} className='anecdota_card'>
-            <img src={`http://localhost:8060/static/${anecdota.media}`} alt={anecdota.titulo} />
-            <h3>{anecdota.titulo}</h3>
-            {/* <p>{anecdota.descripcion}</p> */}
-            <p>
+          <Box key={anecdota._id} sx={{ maxWidth: '400px', textAlign: 'center', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '8px', overflow: 'hidden' }}>
+            <img src={`http://localhost:8060/static/${anecdota.media}`} alt={anecdota.titulo} style={{ maxWidth: '100%', height: 'auto' }} />
+            <Typography variant="h4" component="h3" sx={{ margin: '10px 0' }}>{anecdota.titulo}</Typography>
+            <Typography variant="body1" sx={{ margin: '10px 0', color: '#555934' }}>
               {anecdota.descripcion.length > 100 
                 ? `${anecdota.descripcion.substring(0, 100)}...` 
                 : anecdota.descripcion}
               {anecdota.descripcion.length > 100 && (
-                <Link to={`/anecdotas/${anecdota._id}`}>
-                  Ver más
-                </Link>
+                <Button variant="contained" component={Link} to={`/anecdotas/${anecdota._id}`} sx={{ marginTop: '10px' }}>Ver Más</Button>
               )}
-            </p>
-            <p className='fecha_anecdota'>{formatDate(anecdota.fecha)}</p>
-          </div>
+            </Typography>
+            <Typography variant="body2" className='fecha_anecdota'>{formatDate(anecdota.fecha)}</Typography>
+          </Box>
         ))}
       </section>
     </>

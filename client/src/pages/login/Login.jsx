@@ -1,9 +1,9 @@
-// src/pages/login/Login.js
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import './Login.css';
 import { AppContext } from '../../context/AppProvider';
+import { Box, Button, TextField, Typography } from '@mui/material';
+import '../../styles/loginRegister/loginRegister.css';
 
 export const Login = () => {
     const { state, setState } = useContext(AppContext);
@@ -19,7 +19,7 @@ export const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+
         try {
             const response = await axios.post('http://localhost:8060/api/login', formData);
             localStorage.setItem('userToken', response.data.token);
@@ -30,49 +30,50 @@ export const Login = () => {
                 user: response.data.user,
                 isAuthenticated: true,
             });
-            navigate('/inicio');
+            navigate('/anecdotas');
         } catch (error) {
             console.error('Error al iniciar sesión', error);
             alert('Error al iniciar sesión, verifica tus credenciales');
         }
     };
-    
 
     useEffect(() => {
         console.log('esto es user', state.user);
     }, [state.user]);
 
     return (
-        <div className="login-container">
-            <h1 className="login-title">MEMORIA</h1>
-            <form onSubmit={handleSubmit} className="login-form">
-                <div>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Correo electrónico"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="login-input"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Contraseña"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                        className="login-input"
-                    />
-                </div>
-                <div>
-                    <button type="submit" className="login-button">Iniciar Sesión</button>
-                </div>
+        <Box  sx={{ maxWidth: 400, margin: 'auto', mt: 8, p: 3, boxShadow: 3, borderRadius: 2, bgcolor: '#F2EBDF' }}>
+            <Typography variant="h4" component="h1" gutterBottom>
+                MEMORIA
+            </Typography>
+            <form onSubmit={handleSubmit}>
+                <TextField
+                    label="Correo electrónico"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    fullWidth
+                    margin="normal"
+                />
+                <TextField
+                    label="Contraseña"
+                    name="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                    fullWidth
+                    margin="normal"
+                />
+                <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+                    Iniciar Sesión
+                </Button>
             </form>
-            <p>¿Aún no tienes una cuenta? <Link to="/register" className="login-link">Regístrate aquí</Link></p>
-        </div>
+            <Typography variant="body2" sx={{ mt: 2 }}>
+                ¿Aún no tienes una cuenta? <Link to="/register">Regístrate aquí</Link>
+            </Typography>
+        </Box>
     );
 };

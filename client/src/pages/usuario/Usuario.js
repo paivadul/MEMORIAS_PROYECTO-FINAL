@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './usuario.css';
+import { Container, Box, Typography } from '@mui/material';
 import { AnecdotaData, FormAnecdotas } from '../../components';
 
 export const Usuario = () => {
@@ -15,7 +15,7 @@ export const Usuario = () => {
         };
         try {
             const response = await axios.get('http://localhost:8060/api/anecdota/all', config);
-            setAnecdotas(response.data.anecdotas); // Accede al array de anécdotas
+            setAnecdotas(response.data);
         } catch (error) {
             console.log(error);
             if (error.response && error.response.status === 401) {
@@ -29,23 +29,19 @@ export const Usuario = () => {
     }, []);
 
     return (
-        <>
-            <div className='cont-all-visit'>
-                <div className='form-visit'>
-                    <FormAnecdotas />
-                </div>
-                <div className='all-anecdotas'>
-                    {anecdotas.length > 0 ? (
-                        <div className="cont-anecdotas">
-                            <AnecdotaData anecdotas={anecdotas} />
-                        </div>
-                    ) : (
-                        <div className="vacio">
-                            <h1>No hay anécdotas disponibles</h1>
-                        </div>
-                    )}
-                </div>
-            </div>
-        </>
+        <Container>
+            <Box my={4}>
+                <FormAnecdotas />
+            </Box>
+            <Box my={4}>
+                {anecdotas.length > 0 ? (
+                    <AnecdotaData anecdotas={anecdotas} />
+                ) : (
+                    <Box textAlign="center" my={4}>
+                        <Typography variant="h6">No hay anécdotas disponibles</Typography>
+                    </Box>
+                )}
+            </Box>
+        </Container>
     )
 }

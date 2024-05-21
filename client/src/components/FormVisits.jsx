@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import './formVisits.css';
 import axios from 'axios';
+import { Box, TextField, Button, Typography } from '@mui/material';
 
 export const FormVisits = () => {
     const [nota, setNota] = useState({ nombre: '', nota: '', media: null });
@@ -34,50 +34,41 @@ export const FormVisits = () => {
         try {
             await axios.post('http://localhost:8060/api/visita/new', formData, config);
             setNota({ nombre: '', nota: '', media: null });
+            window.location.reload(); // Recargar la página
         } catch (error) {
             setError(error.response?.data?.error || "Error al enviar los datos. Por favor, intente nuevamente.");
         }
     };
 
     return (
-        <div className='form-container' >
-            <form className="form-form" onSubmit={sendNotaHandler}>
-                <label>
-                    Nombre:
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="nombre"
-                        value={nota.nombre}
-                        onChange={visitHandler}
-                        required
-                    />
-                </label>
-                <label>
-                    Nota:
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="nota"
-                        value={nota.nota}
-                        onChange={visitHandler}
-                        required
-                    />
-                </label>
-                <label>
-                    Media:
-                    <input
-                        type="file"
-                        name="media"
-                        onChange={handleFileChange}
-                        required
-                    />
-                </label>
-                <button type="submit" className="sendButton">Publicar notas</button>
-                {error && <span>{error}</span>}
-            </form>
-        </div>
-    )
+        <Box component="form" onSubmit={sendNotaHandler} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <TextField
+                label="Nombre"
+                name="nombre"
+                value={nota.nombre}
+                onChange={visitHandler}
+                required
+                fullWidth
+                variant="outlined"
+            />
+            <TextField
+                label="Nota"
+                name="nota"
+                value={nota.nota}
+                onChange={visitHandler}
+                required
+                fullWidth
+                variant="outlined"
+            />
+            <input
+                type="file"
+                name="media"
+                onChange={handleFileChange}
+            />
+            <Button type="submit" variant="contained" color="primary">
+                Publicar notas
+            </Button>
+            {error && <Typography color="error">{error}</Typography>}
+        </Box>
+    );
 }
-
-console.log("onichan para que se acualite el componente")

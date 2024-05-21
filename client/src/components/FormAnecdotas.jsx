@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import './formVisits.css';
 import axios from 'axios';
+import { Box, TextField, Button, Typography } from '@mui/material';
 
 export const FormAnecdotas = () => {
     const [anecdota, setAnecdota] = useState({ titulo: '', fecha: '', descripcion: '', media: null });
@@ -35,59 +35,55 @@ export const FormAnecdotas = () => {
         try {
             await axios.post('http://localhost:8060/api/anecdota/new', formData, config);
             setAnecdota({ titulo: '', fecha: '', descripcion: '', media: null });
+            window.location.reload(); // Recargar la página
         } catch (error) {
             setError(error.response?.data?.error || "Error al enviar los datos. Por favor, intente nuevamente.");
         }
     };
 
     return (
-        <div className='form-container' >
-            <form className="form-form" onSubmit={sendanecdotaHandler}>
-                <label>
-                    Titulo:
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="titulo"
-                        value={anecdota.titulo}
-                        onChange={anecdotaHandler}
-                        required
-                    />
-                </label>
-                <label>
-                    Fecha:
-                    <input
-                        className="form-input"
-                        type="date"
-                        name="fecha"
-                        value={anecdota.fecha}
-                        onChange={anecdotaHandler}
-                        required
-                    />
-                </label>
-                <label>
-                    Descripcion:
-                    <input
-                        className="form-input"
-                        type="text"
-                        name="descripcion"
-                        value={anecdota.descripcion}
-                        onChange={anecdotaHandler}
-                        required
-                    />
-                </label>
-                <label>
-                    Media:
-                    <input
-                        type="file"
-                        name="media"
-                        onChange={handleFileChange}
-                        required
-                    />
-                </label>
-                <button type="submit" className="sendButton">Publicar anecdotas</button>
-                {error && <span>{error}</span>}
-            </form>
-        </div>
+        <Box component="form" onSubmit={sendanecdotaHandler} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <TextField
+                label="Título"
+                name="titulo"
+                value={anecdota.titulo}
+                onChange={anecdotaHandler}
+                required
+                fullWidth
+                variant="outlined"
+            />
+            <TextField
+                label="Fecha"
+                type="date"
+                name="fecha"
+                value={anecdota.fecha}
+                onChange={anecdotaHandler}
+                required
+                fullWidth
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                variant="outlined"
+            />
+            <TextField
+                label="Descripción"
+                name="descripcion"
+                value={anecdota.descripcion}
+                onChange={anecdotaHandler}
+                required
+                fullWidth
+                variant="outlined"
+            />
+            <input
+                type="file"
+                name="media"
+                onChange={handleFileChange}
+                required
+            />
+            <Button type="submit" variant="contained" color="primary">
+                Publicar anécdota
+            </Button>
+            {error && <Typography color="error">{error}</Typography>}
+        </Box>
     )
 }

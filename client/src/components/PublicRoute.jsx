@@ -4,5 +4,5 @@ import { AppContext } from "../context/AppProvider";
 
 export const PublicRoute = ({ children }) => {
     const token = localStorage.getItem('userToken');
-    return token ? <Navigate to="/inicio" /> : children;
+    return token ? <Navigate to="/anecdotas" /> : children;
 }

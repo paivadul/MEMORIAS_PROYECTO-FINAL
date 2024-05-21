@@ -1,52 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import axios from 'axios';
-import './galeria.css';
+import { Box, Typography } from '@mui/material';
 
 export const Galeria = () => {
     const [data, setData] = useState([]);
 
-    const getAlldata = async () => {
-        const userToken = localStorage.getItem('userToken');
-        const config = {
-            headers: {
-                Authorization: `Bearer ${userToken}`
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await axios.get('http://localhost:8060/api/anecdota/all');
+                setData(response.data);
+            } catch (error) {
+                console.error('Error al obtener las imágenes:', error);
             }
         };
-        try {
-            const response = await axios.get('http://localhost:8060/api/anecdota/all', config);
-            setData(response.data.anecdotas);
-        } catch (error) {
-            console.log(error);
-            if (error.response && error.response.status === 401) {
-                console.log('Refrescar token y reintentar');
-            }
-        }
-    };
 
-    useEffect(() => {
-        getAlldata();
+        fetchImages();
     }, []);
 
     return (
-        <>
-            <div className='cont-media'>
-                <div className='all-media'>
-                    {data?.length > 0 ? (
-                        <div className="cont-media">
-                            {data.map((anecdota, i) => (
-                                <div className="card-media" key={i}>
-                                    <h2>{anecdota.titulo}</h2>
-                                    <img src={`http://localhost:8060/static/${anecdota.media}`} alt={anecdota.titulo} className="media" />
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="vacio">
-                            <h1>No hay media disponibles</h1>
-                        </div>
-                    )}
-                </div>
-            </div>
-        </>
+        <Box id="media-component" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 4 }}>
+            <Box id="media-carousel-container" sx={{ display: 'flex', flexDirection: 'row', maxWidth: '800px' }}>
+                <Box sx={{ flex: 2 }}>
+                    <Carousel
+                        infiniteLoop
+                        autoPlay
+                        interval={3000}
+                        showThumbs
+                        showStatus={false}
+                        thumbWidth={100}
+                        selectedItem={1}
+                        style={{ flex: 1 }}
+                        renderThumbs={(children) => children.reverse()}
+                    >
+                        {data.map((item, index) => (
+                            <div key={index} className="media-carousel-slide">
+                                <img src={`http://localhost:8060/static/${item.media}`} alt={item.titulo} className="media-carousel-image" style={{ maxWidth: '100%', height: 'auto' }} />
+                                <Typography variant="body1" align="center" sx={{ marginTop: 1 }}>{item.titulo}</Typography>
+                            </div>
+                        ))}
+                    </Carousel>
+                </Box>
+            </Box>
+        </Box>
     );
 };
